@@ -1,0 +1,67 @@
+.App {
+  /* text-align: center; */
+  background-color: rgb(71, 64, 64);
+  color: white;
+  /* display: flex;
+  flex-direction: column;
+  align-items: center; */
+  /* height: auto;
+  width: 100vw; */
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+  padding: 0%;
+  margin: 0%;
+}
+
+
+/* .searchBox{
+  border-radius: 25%;
+  background: grey
+} */
+
+/* input[type-text]{
+  background-color: white;
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  padding-left:40px;
+} */
+.gamelistHeader{
+  width: 75%;
+  height: 150px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.gamelistHeader input{
+  width: 75%;
+  height: 150px;
+  background-color:rgba(122, 222, 233, 0.895);
+  border-radius: 10px;
+  border: none;
+  font-size: 25px;
+  font-weight: bold;
+  color: black;
+  text-align: center;
+  margin-top: 10px;
+  
+  
+}
+
+/* .game{
+  width: 200px;
+  height: 200px;
+  padding: 50px;
+  border-style: inset;
+  margin-left: 100px;
+} */
+
+.game{
+  border: 5px solid white;
+  padding: 25px;
+  margin: 10px;
+  text-align: center;
+}
+
