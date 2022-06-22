@@ -20,21 +20,29 @@ const App = () =>{
   const filteredGames = listOfGames.filter((game) => {
     return game.name.toLowerCase().includes(searchWord.toLowerCase());
   });
+  /*
+    Additions to the project:
+      - add a button that will generate random games
+      - add the option to save a game with a star/ similar to a like system
+      - create option to make a personal profile
+      - in personal profile can check saved games
+      - add more functionality in the backend for the random generator 
+      - 
+  */
 
   return (
-    <div className="App">
-      <div>
-          <h1>GameList</h1>
-        </div>
+    <div className="App">  
       <div className="gamelistHeader">
-        
-        <input type="text"
-         placeholder="Sonic..."
-         id="searchBox"
-         onChange={(event) => {
-           setSearchWord(event.target.value);
-         }}
-        />
+        <div>
+          <h1 id="pageTitle">GameCatalog</h1>
+        </div>
+          <input type="text"
+            placeholder="Sonic..."
+            id="searchBox"
+            onChange={(event) => {
+              setSearchWord(event.target.value);
+            }}
+          />
       </div>
       <div className="gameBody">
         {filteredGames.map((game) => {
