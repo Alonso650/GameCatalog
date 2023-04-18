@@ -34,7 +34,7 @@ const App = () =>{
     <div className="App">  
       <div className="gamelistHeader">
         <div>
-          <h1 id="pageTitle">GameCatalog</h1>
+          <h1 id="pageTitle">GameCatalog<span><ion-icon name="disc-outline"></ion-icon></span></h1>
         </div>
           <input type="text"
             placeholder="Sonic..."
@@ -43,6 +43,7 @@ const App = () =>{
               setSearchWord(event.target.value);
             }}
           />
+          <button>Generate Random List</button>
       </div>
       <div className="gameBody">
         {filteredGames.map((game) => {
