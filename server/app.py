@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+import random
 import requests
 # urllib.request is a python module that will be used
 # tos end the request to the desired api
@@ -16,67 +17,27 @@ CORS(app)
 #API = config('API_KEY')
 @app.route("/")
 def get_games():
-    api_url = "https://www.giantbomb.com/api/games/?api_key=8dd109cfd885e3367a3cde2b474e0c9a924e9534&format=json&filed_list=name"
-
-    response = urllib.request.urlopen(api_url)
-    data = response.read()
-    jsondata = json.loads(data)
-    return jsondata
-
-@app.route("/games")
-def get_games_list():
     api_url = "https://www.giantbomb.com/api/games/"
     api_key = "8dd109cfd885e3367a3cde2b474e0c9a924e9534"
     params = {
         "api_key": api_key,
         "format": "json",
         "field_list": "name",
-        "number_of_page_results": "200"
-     #   "limit": 10
+        "number_of_page_results": "200",
+        "limit": 150,
     }
-
     response = requests.get(api_url, params=params)
-
     jsondata = response.json()
 
     game_json = []
     for game in jsondata["results"]:
         game_json.append({"name": game["name"]})
-    
+
+    random.shuffle(game_json)
     return {"games": game_json}
-# @app.route("/api/games")
-# def get_games():
-#     # api_url = "https://www.giantbomb.com/api/games/?api_key=8dd109cfd885e3367a3cde2b474e0c9a924e9534&format=json&filed_list=name"
-#     url = "https://www.giantbomb.com/api/games/"
-#     params ={'api_key': '8dd109cfd885e3367a3cde2b474e0c9a924e9534', 'format': 'json'}
-
-#     # response = urllib.request.urlopen(api_url)
-#     response = requests.get(url, params=params)
-#     games = response.json()['results']
-#     # data = response.read()
-#     # jsondata = json.loads(data)
-#     # return jsondata
-#     return jsonify(games)
-
-# @app.route("/games")
-# def get_games_list():
-   
+    #return jsondata
     
-    # api_url = "https://www.giantbomb.com/api/games/?api_key=8dd109cfd885e3367a3cde2b474e0c9a924e9534&format=json&field_list=name"
-    # response = urllib.request.urlopen(api_url)
-    # data = response.read()
-    # jsondata = json.loads(data)
 
-    # game_json = []
-
-    # for game in jsondata["results"]:
-    #     game = {
-    #         "name": game["name"],
-    #     }
-
-    #     game_json.append(game)
-    # print(game_json)
-    # return game_json
 
 
     

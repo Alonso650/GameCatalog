@@ -20,15 +20,23 @@ const App = () =>{
   const filteredGames = listOfGames.filter((game) => {
     return game.name.toLowerCase().includes(searchWord.toLowerCase());
   });
-  /*
-    Additions to the project:
-      - add a button that will generate random games
-      - add the option to save a game with a star/ similar to a like system
-      - create option to make a personal profile
-      - in personal profile can check saved games
-      - add more functionality in the backend for the random generator 
-      - 
-  */
+
+  const generateGameList = (gameData, numGames) => {
+    const gameList = [];
+    const usedIndices = new Set();
+
+    while(gameList.length < numGames){
+      const randIndex = Math.floor(Math.random() * gameData.length);
+      if(!usedIndices.has(randIndex)){
+        const game = gameData[randIndex];
+        gameList.push(game);
+        usedIndices.add(randIndex);
+      }
+    }
+
+    return gameList;
+  }
+
 
   return (
     <div className="App">  
@@ -43,7 +51,10 @@ const App = () =>{
               setSearchWord(event.target.value);
             }}
           />
-          <button>Generate Random List</button>
+          <button onClick={() => {
+            const newGameList = generateGameList(listOfGames, 20);
+            setListOfGames(newGameList);
+          }}>Generate Random List</button>
       </div>
       <div className="gameBody">
         {filteredGames.map((game) => {
@@ -52,6 +63,10 @@ const App = () =>{
               image={game.image.thumb_url}
               name={game.name}
               releaseDate = {game.original_release_date}
+              onError={(e) => {
+                e.target.onerror = null; // prevents infinite loop
+                e.target.src = "default-image-url"; // fallback image url
+              }}
             />
           );
         })}
