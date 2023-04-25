@@ -11,21 +11,46 @@ const App = () =>{
   useEffect(() => {
     axios.get("http://localhost:6969/").then(
       (response) => { 
-        setListOfGames(response.data.results);
+        setListOfGames(response.data);
         console.log(response.data);
+        //console.log(response.data.games);
+        //console.log(response.text);
       }
     );
   }, []);
 
-  const filteredGames = listOfGames.filter((game) => {
-    return game.name.toLowerCase().includes(searchWord.toLowerCase());
-  });
+  // const filteredGames = listOfGames ? listOfGames.filter((game) => {
+  //   return game.includes(searchWord.toLowerCase());
+  // }) : [];
 
-  const generateGameList = (gameData, numGames) => {
+  const filteredGames = listOfGames ? listOfGames.filter((game) => {
+    return (
+        game.name.toLowerCase().includes(searchWord.toLowerCase()) ||
+        (game.released && game.released.includes(searchWord.toLowerCase()))
+    );
+}) : [];
+
+  // const generateGameList = (gameData = [], numGames = 0) => {
+  //   const gameList = [];
+  //   const usedIndices = new Set();
+
+  //   while(gameList.length < numGames){
+  //     const randIndex = Math.floor(Math.random() * gameData.length);
+  //     if(!usedIndices.has(randIndex)){
+  //       const game = gameData[randIndex];
+  //       gameList.push(game);
+  //       usedIndices.add(randIndex);
+  //     }
+  //   }
+
+  //   return gameList;
+  // }
+
+  const generateGameList = (gameData = [], numGames = 0) => {
     const gameList = [];
     const usedIndices = new Set();
-
-    while(gameList.length < numGames){
+  
+    while(gameList.length < numGames && gameList.length < gameData.length){
       const randIndex = Math.floor(Math.random() * gameData.length);
       if(!usedIndices.has(randIndex)){
         const game = gameData[randIndex];
@@ -33,7 +58,7 @@ const App = () =>{
         usedIndices.add(randIndex);
       }
     }
-
+  
     return gameList;
   }
 
@@ -60,13 +85,10 @@ const App = () =>{
         {filteredGames.map((game) => {
           return(
             <Game 
-              image={game.image.thumb_url}
+              key={game.id}
               name={game.name}
-              releaseDate = {game.original_release_date}
-              onError={(e) => {
-                e.target.onerror = null; // prevents infinite loop
-                e.target.src = "default-image-url"; // fallback image url
-              }}
+              background_image={game.background_image}
+              releaseDate={game.released}
             />
           );
         })}
