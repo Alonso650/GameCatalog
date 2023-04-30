@@ -13,16 +13,13 @@ const App = () =>{
       (response) => { 
         setListOfGames(response.data);
         console.log(response.data);
-        //console.log(response.data.games);
-        //console.log(response.text);
       }
     );
   }, []);
 
-  // const filteredGames = listOfGames ? listOfGames.filter((game) => {
-  //   return game.includes(searchWord.toLowerCase());
-  // }) : [];
-
+  // Checks whether the game objects 'name' includes the searchWord string 
+  // after its converted to lowercase and checks if the 'released property exists
+  // and includes the searchWord as well
   const filteredGames = listOfGames ? listOfGames.filter((game) => {
     return (
         game.name.toLowerCase().includes(searchWord.toLowerCase()) ||
@@ -30,36 +27,15 @@ const App = () =>{
     );
 }) : [];
 
-  // const generateGameList = (gameData = [], numGames = 0) => {
-  //   const gameList = [];
-  //   const usedIndices = new Set();
 
-  //   while(gameList.length < numGames){
-  //     const randIndex = Math.floor(Math.random() * gameData.length);
-  //     if(!usedIndices.has(randIndex)){
-  //       const game = gameData[randIndex];
-  //       gameList.push(game);
-  //       usedIndices.add(randIndex);
-  //     }
-  //   }
 
-  //   return gameList;
-  // }
+  // Calling a async function to await a response from the backend
+  // to refresh the list of games randomly every time the button is clicked
 
-  const generateGameList = (gameData = [], numGames = 0) => {
-    const gameList = [];
-    const usedIndices = new Set();
-  
-    while(gameList.length < numGames && gameList.length < gameData.length){
-      const randIndex = Math.floor(Math.random() * gameData.length);
-      if(!usedIndices.has(randIndex)){
-        const game = gameData[randIndex];
-        gameList.push(game);
-        usedIndices.add(randIndex);
-      }
-    }
-  
-    return gameList;
+
+  const generateGameList = async () => {
+    const response = await axios.get("http://localhost:6969/")
+    return response.data;
   }
 
 
@@ -70,14 +46,14 @@ const App = () =>{
           <h1 id="pageTitle">GameCatalog<span><ion-icon name="disc-outline"></ion-icon></span></h1>
         </div>
           <input type="text"
-            placeholder="Sonic..."
+            placeholder="Enter a game..."
             id="searchBox"
             onChange={(event) => {
               setSearchWord(event.target.value);
             }}
           />
-          <button onClick={() => {
-            const newGameList = generateGameList(listOfGames, 20);
+          <button onClick={async () => {
+            const newGameList = await generateGameList();
             setListOfGames(newGameList);
           }}>Generate Random List</button>
       </div>

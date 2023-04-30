@@ -1,9 +1,6 @@
 from flask import Flask, jsonify
 import random
 import requests
-# urllib.request is a python module that will be used
-# tos end the request to the desired api
-import urllib.request, json
 
 # below imports allow to return JSON data
 # and read a JSON file 
@@ -14,30 +11,29 @@ app = Flask(__name__)
 CORS(app)
 
 
-#API = config('API_KEY')
 @app.route('/')
-def get_popular_games():
+def get_all_games():
     # Set the API endpoint and parameters
+    # Doing an API call to get a list of games with a page
+    # size of 1000
     api_url = "https://api.rawg.io/api/games"
     api_key = "46e2b52b8c314c51916eab168dc92f87"
     params = {
         "key": api_key,
-        # "ordering": "-added",
-        "page_size": 10,
+        "page_size": 1000,
     }
     
     # Make the API request and get the response data
     response = requests.get(api_url, params=params)
-    response_data = response.json()
+    response_data = response.json()["results"]
+
+    # Selects 10 random games from the list of 1000 games
+    random_games = random.sample(response_data, 10)
     
-    # Extract the game names from the response data and return as JSON
+    # Extracts the name, release date and image of each game
+    # and adds it to a list
     games = []
-    for game in response_data['results']:
-        #game["background_image_url"] = game["background_image"]
-        # games.append(game['name'])
-        #games.append(game['background_image'])
-        #games.append(game['id'])
-        #games[game['name']] = game['background_image']
+    for game in random_games:
         game_data={
             'id': game['id'],
             'name': game['name'],
@@ -45,46 +41,10 @@ def get_popular_games():
             'background_image': game['background_image']
         }
         games.append(game_data)
-
-    # json_object = json.loads(games)
-    # json_formatted = json.dumps(json_object, indent = 2)
-    # print(json_formatted)
     
     return jsonify(games)
 
-
-
-# @app.route("/")
-# def get_games():
-#     api_url = "https://www.giantbomb.com/api/games/"
-#     api_key = "8dd109cfd885e3367a3cde2b474e0c9a924e9534"
-#     params = {
-#         "api_key": api_key,
-#         "format": "json",
-#         "field_list": "name",
-#     }
-#     response = requests.get(api_url, params=params)
-#     jsondata = response.json()
-
-#     # game_json = []
-#     # for game in jsondata["results"]:
-#     #     game_json.append({"name": game["name"]})
-
-#     # random.shuffle(game_json)
-#     # return {"games": game_json}
-#     game_names = [game['name'] for game in jsondata['results']]
-#     random.shuffle(game_names)
-#     return jsonify(game_names)
     
-
-
-
-    
-# @app.route("/randomGames")
-# def generate_game_list():
-
-
-   
 
 # '/users' is an endpoint with method
 # @app.route('/users', methods=["GET", "POST"])
