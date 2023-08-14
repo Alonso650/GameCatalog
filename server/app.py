@@ -66,6 +66,8 @@ def get_game_id(id):
         }
         return jsonify(game_data)
     
+    return jsonify({"error": "Game not found"}), 404
+    
     
 
 if __name__ == "__main__":

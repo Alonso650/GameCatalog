@@ -1,5 +1,6 @@
 import './App.css';
-import {useEffect, useState} from "react"
+import {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import Game from "./component/Game";
 
@@ -7,6 +8,7 @@ import Game from "./component/Game";
 const App = () =>{
   const [listOfGames, setListOfGames] = useState([]);
   const [searchWord, setSearchWord] = useState("");
+  let navigate = useNavigate();
 
   useEffect(() => {
     axios.get("http://localhost:6969/").then(
@@ -60,16 +62,26 @@ const App = () =>{
       <div className="gameBody">
         {filteredGames.map((game) => {
           return(
+            
             <Game 
               key={game.id}
               name={game.name}
               background_image={game.background_image}
               releaseDate={game.released}
-            />
+            
+              onClick={() => {
+                navigate(`/games/${game.id}`)
+              }}/>
           );
         })}
       </div>
+
+      <Routes>
+        <Route exact path='/games/:id' element={<GameInfo/>}/>
+      </Routes>
     </div>
+
+    
   );
 }
 
