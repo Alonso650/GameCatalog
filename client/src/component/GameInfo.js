@@ -1,16 +1,18 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
 function GameInfo(){
     let { id } = useParams();
-    const [gameObject, setGameObject] = useState({});
+    const [gameObject, setGameObject] = useState(null);
 
     useEffect(() => {
+        console.log(id);
         axios.get(`http://localhost:6969/games/${id}`).then((response) => {
+            console.log(response.data);
             setGameObject(response.data);
         })
-    })
+    });
 
     return(
         <div className="gameInfoPage">
