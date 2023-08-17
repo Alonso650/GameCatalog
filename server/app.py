@@ -43,7 +43,7 @@ def get_all_games():
         games.append(game_data)
     
     return jsonify(games)
-@app.route('/games/<int:id>')
+@app.route('/game/<int:id>')
 def get_game_id(id):
     # Using f-string to retrieve specific game's endpoint based on the id
     api_url = f"https://api.rawg.io/api/games/{id}"

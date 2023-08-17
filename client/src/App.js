@@ -9,7 +9,7 @@ function App(){
   return(
     <div className="App">
       <Routes>
-        <Route exact path='/games/:id' element={<GameInfo/>}/>
+        <Route exact path='/game/:id' element={<GameInfo/>}/>
         <Route exact path='/' element={<Home/>}/>
       </Routes>
     </div>

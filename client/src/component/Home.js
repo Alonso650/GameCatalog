@@ -35,6 +35,9 @@ const [listOfGames, setListOfGames] = useState([]);
   // Calling a async function to await a response from the backend
   // to refresh the list of games randomly every time the button is clicked
 
+  /*
+    Add a footer!
+  */
 
   const generateGameList = async () => {
     const response = await axios.get("http://localhost:6969/")
@@ -59,25 +62,30 @@ const [listOfGames, setListOfGames] = useState([]);
             const newGameList = await generateGameList();
             setListOfGames(newGameList);
           }}>Generate Random List</button>
-      </div>
+      </div>     
       <div className="gameBody">
         {filteredGames.map((game) => {
           return(
-            
+            <div 
+                key={game.id}
+                className="gameItem"
+                onClick={() => {
+                    navigate(`/game/${game.id}`);
+                }}
+            >
             <Game 
               key={game.id}
               name={game.name}
               background_image={game.background_image}
               releaseDate={game.released}
             
-              onClick={() => {
-                navigate(`/games/${game.id}`)
-              }}/>
+              />
+            </div>
           );
         })}
       </div>
-      </div>   
-);
+    </div>   
+    );
 }
 
 export default Home;
