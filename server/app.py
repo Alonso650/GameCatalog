@@ -61,7 +61,6 @@ def get_game_id(id):
             'name': response_json['name'],
             'description': response_json['description'],
             'background_image_additional': response_json['background_image_additional'],
-            'rating': response_json['rating'],
             'metacritic': response_json['metacritic']
         }
         return jsonify(game_data)

@@ -75,6 +75,19 @@ body{
   font-family: 'Staatliches', cursive;
 }
 
+.individual{
+  padding: 10px;
+  margin: 30px;
+  text-align: center;
+  width: 500px;
+  height: 300px;
+  font-family: 'Staatliches', cursive;
+}
+
+.gameInfo{
+  border: 5px solid white;
+
+}
 img{
   width: 150px;
   height: 150px;

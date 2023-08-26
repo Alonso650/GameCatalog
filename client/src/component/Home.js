@@ -7,9 +7,13 @@ import axios from "axios";
 
 
 function Home(){
-const [listOfGames, setListOfGames] = useState([]);
+  const [listOfGames, setListOfGames] = useState([]);
   const [searchWord, setSearchWord] = useState("");
+  const [play, setPlay] = useState(false);
+
   let navigate = useNavigate();
+  const mySound = require("../assets/sounds/elevator_music.mp3");
+  const audio = document.getElementById("audio_tag");
 
   useEffect(() => {
     axios.get("http://localhost:6969/").then(
@@ -50,14 +54,20 @@ const [listOfGames, setListOfGames] = useState([]);
       <div className="gamelistHeader">
         <div>
           <h1 id="pageTitle">GameCatalog<span><ion-icon name="disc-outline"></ion-icon></span></h1>
+          {/* <button onClick={() => {
+            play ? setPlay(false) : setPlay(true);
+            play ? audio.pause() : audio.play();
+          }}>
+          </button> */}
+          {/* <audio id="audio_tag" src={mySound}/> */}
         </div>
-          <input type="text"
+          {/* <input type="text"
             placeholder="Enter a game..."
             id="searchBox"
             onChange={(event) => {
               setSearchWord(event.target.value);
             }}
-          />
+          /> */}
           <button onClick={async () => {
             const newGameList = await generateGameList();
             setListOfGames(newGameList);
