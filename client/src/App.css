@@ -2,14 +2,12 @@ html,body{
   height: 100%;
   margin: 0;
   padding: 0;  
+  background-color: black;
+  color: white;
 }
 
 
 .App {
-  /* background-color: rgb(71, 64, 64); */
-  background-image: linear-gradient(135deg,rgb(29, 148, 110), rgb(69, 76, 192), violet),
-  linear-gradient(225deg, rgb(29, 148, 110), rgb(69, 76, 192), violet);
-  /* color: white; */
   background-attachment: fixed;
   width: 100vw;
   height: 100vh;
@@ -35,11 +33,6 @@ span{
 }
 
 
-body{
-  padding: 0;
-  margin: 0;
-}
-
 
 .gamelistHeader{
   width: 75%;
@@ -57,22 +50,44 @@ body{
   border: none;
   font-size: 25px;
   font-weight: bold;
-  color: black;
+  color: green;
   text-align: center;
   margin-top: 10px;
   
   
 }
+.gameContainer{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
 
-
-.game{
-  border: 5px solid white;
+/* .game{
+  border: 10px solid;
+  border-width: 10px;
+  border-image-source: linear-gradient(#00C853, #B2FF59);
   padding: 10px;
   margin: 30px;
   text-align: center;
   width: 500px;
   height: 300px;
   font-family: 'Staatliches', cursive;
+} */
+
+.gameItem{
+  padding: 20px;
+  margin: 30px;
+  text-align: center;
+  width: 340px;
+  height: 340px;
+  font-family: 'Staatliches', cursive;
+  font-size: .75em;
+
+  border-image: linear-gradient(135deg,rgb(240, 40, 187), rgb(0, 0, 0), rgb(66, 39, 219));
+  border-image-slice: 1; /* ensures that the gradiant is applied all around the border */
+  border-image-width: 10px; 
+  border-image-outset: 0; /* set outset to 0 to keep the border inside the element */
+  border-image-repeat: stretch; /* stretched to fill the whole border */
 }
 
 .individual{
@@ -84,13 +99,21 @@ body{
   font-family: 'Staatliches', cursive;
 }
 
+
+
 .gameInfo{
-  border: 5px solid white;
+  padding: 30px;
+  border-image: linear-gradient(135deg,rgb(61, 121, 225), rgb(69, 76, 192), rgb(100, 72, 194));
+  border-image-slice: 1; /* ensures that the gradiant is applied all around the border */
+  border-image-width: 10px; 
+  border-image-outset: 0; /* set outset to 0 to keep the border inside the element */
+  border-image-repeat: stretch; /* stretched to fill the whole border */
 
 }
+
 img{
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
 }
 
 #pageTitle{
@@ -98,4 +121,10 @@ img{
   font-family: 'Lobster', cursive;
 
 }
+
+
+
+
+
+
 

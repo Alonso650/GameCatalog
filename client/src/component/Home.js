@@ -7,6 +7,7 @@ import axios from "axios";
 
 
 function Home(){
+  
   const [listOfGames, setListOfGames] = useState([]);
   const [searchWord, setSearchWord] = useState("");
   const [play, setPlay] = useState(false);
@@ -34,6 +35,16 @@ function Home(){
     );
 }) : [];
 
+  const generateRandomGames = async () => {
+    const response = await axios.get("http://localhost:6969/");
+    return response.data;
+  }
+
+  const replaceRandomGames = async () => {
+    const newGameList = await generateRandomGames();
+    setListOfGames(newGameList); 
+  }
+
 
 
   // Calling a async function to await a response from the backend
@@ -43,10 +54,10 @@ function Home(){
     Add a footer!
   */
 
-  const generateGameList = async () => {
-    const response = await axios.get("http://localhost:6969/")
-    return response.data;
-  }
+  // const generateGameList = async () => {
+  //   const response = await axios.get("http://localhost:6969/")
+  //   return response.data;
+  // }
 
 
   return (
@@ -68,12 +79,13 @@ function Home(){
               setSearchWord(event.target.value);
             }}
           /> */}
-          <button onClick={async () => {
+          {/* <button onClick={async () => {
             const newGameList = await generateGameList();
             setListOfGames(newGameList);
-          }}>Generate Random List</button>
+          }}>Generate Random List</button> */}
+          <button onClick={replaceRandomGames}>Generate Random List</button>
       </div>     
-      <div className="gameBody">
+      <div className="gameContainer">
         {filteredGames.map((game) => {
           return(
             <div 
